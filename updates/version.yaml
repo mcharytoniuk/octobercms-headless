@@ -1,0 +1,4 @@
+1.0.1: First version of HeadlessCMS
+1.1.0:
+    - Add static content editors
+    - 2018_09_22_create_static_content_table.php
