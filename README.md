@@ -6,7 +6,7 @@ for going headless.
 
 You do not need to generate or build models, this plugin stores data in the 
 database but it's designed in a way that doesn't require any database 
-maintenance.
+development.
 
 ## Requirements
 
