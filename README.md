@@ -4,6 +4,10 @@ This plugin is aimed at developers but provides easy to use static content
 forms through reusing OctoberCMS form behavior and the ability to expose API
 for going headless.
 
+You do not need to generate or build models, this plugin stores data in the 
+database but it's designed in a way that doesn't require any database 
+maintenance on your side.
+
 ## Requirements
 
 This plugin requires https://github.com/alsofronie/eloquent-uuid library.
