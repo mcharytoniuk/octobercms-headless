@@ -1,0 +1,21 @@
+{
+    "name": "newridetech/octobercms-headless",
+    "type": "october-plugin",
+    "description": "Classnames plugin for October CMS",
+    "homepage": "http://octobercms.com/plugin/newride-headless",
+    "keywords": ["october", "octobercms", "headless"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mateusz Charytoniuk",
+            "email": "mateusz.charytoniuk@newride.tech"
+        }
+    ],
+    "require": {
+        "alsofronie/eloquent-uuid": "1.0.9",
+        "composer/installers": "~1.0",
+        "php": ">=7.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
