@@ -38,6 +38,7 @@ https://octobercms.com/docs/console/scaffolding#scaffold-create-plugin
 use `Newride.Headless.Behaviors.StaticContentEditor` behavior provided by
 Headless:
 https://octobercms.com/docs/backend/forms#introduction
+
 `Newride.Headless.Behaviors.StaticContentEditor` extends the default
 `FormController` behavior. It uses `form_config.yaml` to generate static
 content API and component for you.
@@ -196,7 +197,9 @@ fields:
         required: true
 ```
 
-You can use it on your page like this:
+You can use it on your page like thisYou can use it on your page like this
+(`strict` parameter means that it will raise errors if expected content is not
+filled in the admin panel):
 
 ```html
 title = "Home"
