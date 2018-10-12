@@ -8,18 +8,6 @@ You do not need to generate or build models, this plugin stores data in the
 database but it's designed in a way that doesn't require any database 
 development.
 
-## Requirements
-
-This plugin requires https://github.com/alsofronie/eloquent-uuid library.
-Because of OctoberCMS not clear way to provide composer dependencies with
-marketplace plugins in some scenarios you might need to add
-`alsofronie/eloquent-uuid` directly to your `composer.json` after installing
-the plugin by typing in the project root:
-
-```bash
-$ composer require alsofronie/eloquent-uuid
-```
-
 ## Setup
 
 The setup process should take about ~5 minutes overall if you get some
