@@ -2,3 +2,4 @@
 1.1.0:
     - Add static content editors
     - 2018_09_22_create_static_content_table.php
+1.2.0: Add uploaded 'fileupload' field support

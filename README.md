@@ -4,9 +4,21 @@ This plugin is aimed at developers but provides easy to use static content
 forms through reusing OctoberCMS form behavior and the ability to expose API
 for going headless.
 
-You do not need to generate or build models, this plugin stores data in the 
-database but it's designed in a way that doesn't require any database 
+You do not need to generate or build models, this plugin stores data in the
+database but it's designed in a way that doesn't require any database
 development.
+
+## Requirements
+
+This plugin requires https://github.com/alsofronie/eloquent-uuid library.
+Because of OctoberCMS not clear way to provide composer dependencies with
+marketplace plugins in some scenarios you might need to add
+`alsofronie/eloquent-uuid` directly to your `composer.json` after installing
+the plugin by typing in the project root:
+
+```bash
+$ composer require alsofronie/eloquent-uuid
+```
 
 ## Setup
 
@@ -31,11 +43,14 @@ use `Newride.Headless.Behaviors.StaticContentEditor` behavior provided by
 Headless:
 https://octobercms.com/docs/backend/forms#introduction
 
+Also, don't forget to create 'update.htm' or equivalent backend view to display
+the form.
+
 `Newride.Headless.Behaviors.StaticContentEditor` extends the default
 `FormController` behavior. It uses `form_config.yaml` to generate static
 content API and component for you.
 
-Inside your backend Controller you also need to provide a public property with
+Inside your backend Controller you also can provide a public property with
 the page name your are going to edit (`public $staticPageName`). It will be
 used by static content component in your views and API routes. Your final
 controller should look somewhat like this:
@@ -56,7 +71,8 @@ class Homepage extends Controller
 
     public $formConfig = 'config_form.yaml';
 
-    public $staticPageName = 'home';
+    // optionally you can provide static page name here
+    // public $staticPageName = 'home';
 
     public function update(): void
     {
@@ -64,6 +80,13 @@ class Homepage extends Controller
 
         BackendMenu::setContext('Acme.ContentEditor', 'contenteditor', 'homepage');
     }
+
+    // // optionally, you can implement such method to generate page name
+    // // programatically in some way
+    // public function staticContentGetPageName(): string
+    // {
+    //     return 'home';
+    // }
 }
 ```
 
@@ -75,7 +98,17 @@ If should look like this:
 ```yaml
 name: My static content form
 form: $/acme/contenteditor/controllers/homepage/fields.yaml
-modelClass: Newride\Headless\Models\StaticContent
+
+# You can skip 'modelClass' field. It is set by default to the model included
+# in the plugin.
+#   modelClass: Newride\Headless\Models\StaticContent
+
+# You need to provide static page name either here or in the controller.
+# The order of precedence this plugin uses to find the actual static page is:
+# 1. `public $staticPageName` controller property
+# 2. `public function staticPageName()` controller method
+# 3. This config option.
+static_page_name: home
 ```
 
 3. In your `Plugin.php` file register backend navigation so you will be able
@@ -189,9 +222,7 @@ fields:
         required: true
 ```
 
-You can use it on your page like thisYou can use it on your page like this
-(`strict` parameter means that it will raise errors if expected content is not
-filled in the admin panel):
+You can use it on your page like this:
 
 ```html
 title = "Home"
@@ -199,9 +230,8 @@ url = "/"
 layout = "default"
 is_hidden = 0
 
-[staticContent]
+[staticContent static]
 page_name = "home"
-strict = true
 ==
 
 <p>Hello, {{ static.content.planet }}!</p> <!-- <p>Hello, World!</p> -->
@@ -221,6 +251,11 @@ Api response at `http://projecturl/api/v1/content/home` would look like this:
     }
 }
 ```
+
+### Strict fields
+
+If you want an exception to be thrown when some CMS field is not set, you can
+use `enableTwigStrictVariables` CMS config option (in `config/app.php` file).
 
 ## Summary
 

@@ -4,6 +4,7 @@ namespace Newride\Headless\Components;
 
 use Newride\Headless\Models\StaticContent as StaticContentModel;
 use Cms\Classes\ComponentBase;
+use System\Models\File;
 
 class StaticContent extends ComponentBase
 {
@@ -34,13 +35,27 @@ class StaticContent extends ComponentBase
         ];
     }
 
-    public function content(): StaticContentModel
+    public function content(): array
     {
         $pageName = $this->property('page_name');
 
         $content = StaticContentModel::findOrCreateForPage($pageName);
-        $content->setStrict($this->property('strict'));
+        $data = $content->toArray()['data'];
 
-        return $content;
+        // search for potential attachments
+        $attachments = File::where('attachment_id', $content->id)->get();
+        foreach ($attachments as $attachment) {
+            if (isset($data[$attachment->field])) {
+                if (!is_array($data[$attachment->field])) {
+                    $data[$attachment->field] = [$data[$attachment->field]];
+                }
+
+                array_push($data[$attachment->field], $attachment);
+            } else {
+                $data[$attachment->field] = $attachment;
+            }
+        }
+
+        return $data;
     }
 }
