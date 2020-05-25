@@ -20,6 +20,11 @@ the plugin by typing in the project root:
 $ composer require alsofronie/eloquent-uuid
 ```
 
+## Example
+
+Repository with the latest OctoberCMS and plugin with working example setup:
+https://github.com/mcharytoniuk/octobercms-headless-example
+
 ## Setup
 
 The setup process should take about ~5 minutes overall if you get some
